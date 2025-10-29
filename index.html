@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rebound - Votre nouvelle chance</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #333;
+      overflow-x: hidden;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 1.2rem 2rem;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo img {
+      height: 80px;
+      width: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    .nav-links a:hover {
+      color: #667eea;
+      transform: translateY(-2px);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #667eea;
+      transition: width 0.3s;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* Pages */
+    .page {
+      min-height: 100vh;
+      padding: 6rem 2rem 3rem;
+      display: none;
+      animation: fadeIn 0.5s;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      color: white;
+      padding: 4rem 0;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1.5rem;
+      animation: slideDown 0.8s;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero p {
+      font-size: 1.4rem;
+      margin-bottom: 2rem;
+      opacity: 0.95;
+    }
+
+    .cta-button {
+      background: white;
+      color: #667eea;
+      padding: 1rem 2.5rem;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Cards */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .card {
+      background: white;
+      border-radius: 20px;
+      padding: 2.5rem;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      transition: all 0.4s;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    }
+
+    .card-icon {
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: white;
+    }
+
+    .card h3 {
+      color: #667eea;
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+    }
+
+    .card p {
+      color: #666;
+      line-height: 1.6;
+    }
+
+    .card-link {
+      display: inline-block;
+      margin-top: 1rem;
+      color: #667eea;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    /* Testimonials */
+    .testimonial {
+      background: white;
+      border-radius: 20px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s;
+    }
+
+    .testimonial:hover {
+      transform: scale(1.02);
+    }
+
+    .testimonial-header {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .testimonial-avatar {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .testimonial-info h4 {
+      color: #333;
+      margin-bottom: 0.3rem;
+    }
+
+    .testimonial-info p {
+      color: #999;
+      font-size: 0.9rem;
+    }
+
+    .testimonial-text {
+      color: #666;
+      line-height: 1.8;
+      font-style: italic;
+    }
+
+    /* Contact Form */
+    .contact-form {
+      background: white;
+      border-radius: 20px;
+      padding: 3rem;
+      max-width: 600px;
+      margin: 2rem auto;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #333;
+      font-weight: 500;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 1rem;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      font-size: 1rem;
+      transition: all 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 150px;
+    }
+
+    .submit-btn {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 1rem 3rem;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+      width: 100%;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+    }
+
+    .page-title {
+      color: white;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .page-subtitle {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 1.2rem;
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        gap: 1rem;
+        font-size: 0.9rem;
+      }
+
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav>
+    <div class="logo">
+      <img src="img/logo.png" alt="Rebound Logo">
+    </div>
+    <ul class="nav-links">
+      <li><a href="#" onclick="showPage('accueil')">Accueil</a></li>
+      <li><a href="#" onclick="showPage('ecoles')">Écoles</a></li>
+      <li><a href="#" onclick="showPage('entreprises')">Entreprises</a></li>
+      <li><a href="#" onclick="showPage('témoignages')">Témoignages</a></li>
+      <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Page Accueil -->
+  <div id="accueil" class="page active">
+    <div class="container">
+      <div class="hero">
+        <h1>Rebondis vers ton avenir ✨</h1>
+        <p>Une nouvelle chance commence ici. Découvre les opportunités qui t'attendent.</p>
+        <button class="cta-button" onclick="showPage('ecoles')">Explorer les options</button>
+      </div>
+
+      <div class="cards-grid">
+        <div class="card" onclick="showPage('ecoles')">
+          <div class="card-icon">🎓</div>
+          <h3>Écoles alternatives</h3>
+          <p>Découvre des formations hors Parcoursup adaptées à ton projet et à ton rythme.</p>
+          <a href="#" class="card-link">En savoir plus →</a>
+        </div>
+
+        <div class="card" onclick="showPage('entreprises')">
+          <div class="card-icon">💼</div>
+          <h3>Opportunités pro</h3>
+          <p>Trouve des entreprises qui recrutent en alternance et qui croient en ton potentiel.</p>
+          <a href="#" class="card-link">Voir les offres →</a>
+        </div>
+
+        <div class="card" onclick="showPage('témoignages')">
+          <div class="card-icon">💬</div>
+          <h3>Témoignages</h3>
+          <p>Lis les histoires inspirantes de ceux qui ont rebondi et réussi leur reconversion.</p>
+          <a href="#" class="card-link">Lire les témoignages →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page Écoles -->
+  <div id="ecoles" class="page">
+    <div class="container">
+      <h2 class="page-title">Écoles hors Parcoursup 🎓</h2>
+      <p class="page-subtitle">Des formations alternatives pour tracer ton propre chemin</p>
+
+      <div class="cards-grid">
+        <div class="card">
+          <div class="card-icon">💻</div>
+          <h3>École 42</h3>
+          <p>Formation gratuite en développement informatique. Apprentissage par projets, sans cours magistraux.
+            Accessible sans diplôme.</p>
+          <p><strong>Durée :</strong> 3 à 5 ans</p>
+          <p><strong>Inscription :</strong> Tests en ligne + piscine</p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">🎨</div>
+          <h3>Écoles de design privées</h3>
+          <p>Formations en design graphique, UX/UI, motion design. Admission sur dossier créatif et entretien.</p>
+          <p><strong>Durée :</strong> 1 à 5 ans</p>
+          <p><strong>Diplômes :</strong> Titres RNCP reconnus</p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">🏪</div>
+          <h3>CFA et écoles en alternance</h3>
+          <p>Formations pratiques en entreprise. Du CAP au Master dans tous les secteurs.</p>
+          <p><strong>Avantage :</strong> Rémunération + expérience</p>
+          <p><strong>Inscription :</strong> Tout au long de l'année</p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">🎬</div>
+          <h3>Écoles de création</h3>
+          <p>Animation 3D, cinéma, game design, photographie. Admissions sur book et motivation.</p>
+          <p><strong>Spécialités :</strong> Arts numériques et visuels</p>
+          <p><strong>Débouchés :</strong> Industries créatives</p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">🌱</div>
+          <h3>Formations courtes certifiantes</h3>
+          <p>Bootcamps, formations accélérées en quelques mois. Reconversion rapide vers l'emploi.</p>
+          <p><strong>Durée :</strong> 2 à 6 mois</p>
+          <p><strong>Domaines :</strong> Tech, marketing, data</p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">🛠️</div>
+          <h3>Écoles de métiers manuels</h3>
+          <p>Artisanat, BTP, restauration, coiffure. Formations pratiques et insertion rapide.</p>
+          <p><strong>Types :</strong> CAP, BP, BTM</p>
+          <p><strong>Avantage :</strong> Métiers recherchés</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page Entreprises -->
+  <div id="entreprises" class="page">
+    <div class="container">
+      <h2 class="page-title">Entreprises partenaires 💼</h2>
+      <p class="page-subtitle">Des opportunités en alternance et stages pour rebondir</p>
+
+      <div class="cards-grid">
+        <div class="card">
+          <div class="card-icon">🚀</div>
+          <h3>Start-ups Tech</h3>
+          <p>Des entreprises innovantes qui valorisent la motivation plus que les diplômes. Environnement dynamique et
+            apprentissage rapide.</p>
+          <p><strong>Postes :</strong> Développement, design, marketing</p>
+          <p><strong>Format :</strong> Alternance, stage, CDI junior</p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">🏗️</div>
+          <h3>Artisans et PME</h3>
+          <p>Entreprises locales qui recrutent et forment. Transmission de savoir-faire, ambiance familiale.</p>
+          <p><strong>Secteurs :</strong> BTP, restauration, services</p>
+          <p><strong>Avantage :</strong> Encadrement personnalisé</p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">🛒</div>
+          <h3>Grande distribution</h3>
+          <p>Opportunités en management, logistique, commerce. Évolution rapide possible.</p>
+          <p><strong>Contrats :</strong> Alternance et professionnalisation</p>
+          <p><strong>Formation :</strong> Prise en charge interne</p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">🎯</div>
+          <h3>Associations et ONG</h3>
+          <p>Missions à impact social, développement de compétences transverses.</p>
+          <p><strong>Domaines :</strong> Social, environnement, éducation</p>
+          <p><strong>Format :</strong> Service civique, stage, emploi</p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">🎮</div>
+          <h3>Industries créatives</h3>
+          <p>Studios de jeux vidéo, agences digitales, production audiovisuelle.</p>
+          <p><strong>Profils recherchés :</strong> Créatifs et passionnés</p>
+          <p><strong>Opportunités :</strong> Projets innovants</p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">🌍</div>
+          <h3>Entreprises engagées</h3>
+          <p>Sociétés avec programmes d'inclusion et de seconde chance.</p>
+          <p><strong>Valeurs :</strong> Diversité, bienveillance</p>
+          <p><strong>Accompagnement :</strong> Mentorat et suivi</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page Témoignages -->
+  <div id="témoignages" class="page">
+    <div class="container">
+      <h2 class="page-title">Ils ont rebondi 💬</h2>
+      <p class="page-subtitle">Leurs histoires pourraient être la tienne demain</p>
+
+      <div class="testimonial">
+        <div class="testimonial-header">
+          <div class="testimonial-avatar">M</div>
+          <div class="testimonial-info">
+            <h4>Malik, 22 ans</h4>
+            <p>Développeur web chez une start-up</p>
+          </div>
+        </div>
+        <div class="testimonial-text">
+          "Après avoir quitté la fac en L1, je ne savais plus quoi faire. J'ai découvert l'école 42 via Rebound.
+          Aujourd'hui, je code tous les jours dans une boîte géniale et je gagne ma vie en faisant ce que j'aime. Le
+          diplôme ne fait pas tout !"
+        </div>
+      </div>
+
+      <div class="testimonial">
+        <div class="testimonial-header">
+          <div class="testimonial-avatar">S</div>
+          <div class="testimonial-info">
+            <h4>Sarah, 20 ans</h4>
+            <p>Apprentie pâtissière</p>
+          </div>
+        </div>
+        <div class="testimonial-text">
+          "J'étais perdue après mon bac. Les études longues, ce n'était pas pour moi. Grâce à un CAP en alternance
+          trouvé sur Rebound, j'ai découvert ma passion pour la pâtisserie. Mon patron veut me garder après mon diplôme
+          !"
+        </div>
+      </div>
+
+      <div class="testimonial">
+        <div class="testimonial-header">
+          <div class="testimonial-avatar">T</div>
+          <div class="testimonial-info">
+            <h4>Thomas, 24 ans</h4>
+            <p>Designer UX/UI</p>
+          </div>
+        </div>
+        <div class="testimonial-text">
+          "Décrochage en 2ème année d'école de commerce. J'ai fait un bootcamp de 3 mois en design trouvé via Rebound.
+          Ça a changé ma vie. Aujourd'hui je travaille sur des projets qui ont du sens et je suis épanoui
+          professionnellement."
+        </div>
+      </div>
+
+      <div class="testimonial">
+        <div class="testimonial-header">
+          <div class="testimonial-avatar">L</div>
+          <div class="testimonial-info">
+            <h4>Léa, 21 ans</h4>
+            <p>Chargée de communication</p>
+          </div>
+        </div>
+        <div class="testimonial-text">
+          "Après un échec à Parcoursup, je pensais que c'était fini pour moi. Rebound m'a montré qu'il y avait plein
+          d'autres chemins. J'ai trouvé une alternance dans une asso super cool. Parfois, les échecs sont des
+          opportunités déguisées."
+        </div>
+      </div>
+
+      <div class="testimonial">
+        <div class="testimonial-header">
+          <div class="testimonial-avatar">K</div>
+          <div class="testimonial-info">
+            <h4>Karim, 23 ans</h4>
+            <p>Chef d'équipe en logistique</p>
+          </div>
+        </div>
+        <div class="testimonial-text">
+          "J'ai arrêté mes études en terminale. Grâce aux contacts d'entreprises sur Rebound, j'ai commencé comme
+          magasinier. Trois ans plus tard, je manage une équipe. Le travail et la motivation, ça paie toujours."
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page Contact -->
+  <div id="contact" class="page">
+    <div class="container">
+      <h2 class="page-title">Contacte-nous 📧</h2>
+      <p class="page-subtitle">On est là pour t'accompagner dans ton rebond</p>
+
+      <div class="contact-form">
+        <form onsubmit="handleSubmit(event)">
+          <div class="form-group">
+            <label for="nom">Nom complet *</label>
+            <input type="text" id="nom" required>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input type="email" id="email" required>
+          </div>
+
+          <div class="form-group">
+            <label for="tel">Téléphone</label>
+            <input type="tel" id="tel">
+          </div>
+
+          <div class="form-group">
+            <label for="sujet">Sujet de ta demande *</label>
+            <select id="sujet" required>
+              <option value="">Choisis une option</option>
+              <option value="orientation">Besoin d'orientation</option>
+              <option value="ecole">Question sur une école</option>
+              <option value="entreprise">Recherche d'alternance/stage</option>
+              <option value="temoignage">Partager mon témoignage</option>
+              <option value="autre">Autre</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Ton message *</label>
+            <textarea id="message" required
+              placeholder="Raconte-nous ton parcours et comment on peut t'aider..."></textarea>
+          </div>
+
+          <button type="submit" class="submit-btn">Envoyer le message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function showPage(pageId) {
+      document.querySelectorAll('.page').forEach(page => {
+        page.classList.remove('active');
+      });
+      document.getElementById(pageId).classList.add('active');
+      window.scrollTo(0, 0);
+    }
+
+    function handleSubmit(event) {
+      event.preventDefault();
+      alert('Merci pour ton message ! On reviendra vers toi très vite. 🚀');
+      event.target.reset();
+    }
+  </script>
+</body>
+
+</html>
