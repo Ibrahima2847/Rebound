@@ -41,7 +41,7 @@
     }
 
     .logo img {
-      height: 80px;
+      height: 50px;
       width: auto;
     }
 
@@ -351,6 +351,10 @@
       .cards-grid {
         grid-template-columns: 1fr;
       }
+
+      div[style*="grid-template-columns: 1fr 1fr"] {
+        grid-template-columns: 1fr !important;
+      }
     }
   </style>
 </head>
@@ -359,13 +363,14 @@
   <!-- Navigation -->
   <nav>
     <div class="logo">
-      <img src="img/logo.png" alt="Rebound Logo">
+      <img src="https://i.postimg.cc/C5d7pHGm/logo-rebound.png" alt="Rebound Logo">
     </div>
     <ul class="nav-links">
       <li><a href="#" onclick="showPage('accueil')">Accueil</a></li>
       <li><a href="#" onclick="showPage('ecoles')">Écoles</a></li>
       <li><a href="#" onclick="showPage('entreprises')">Entreprises</a></li>
       <li><a href="#" onclick="showPage('témoignages')">Témoignages</a></li>
+      <li><a href="#" onclick="showPage('assistance')">Assistance</a></li>
       <li><a href="#" onclick="showPage('contact')">Contact</a></li>
     </ul>
   </nav>
@@ -604,6 +609,144 @@
     </div>
   </div>
 
+  <!-- Page Assistance -->
+  <div id="assistance" class="page">
+    <div class="container">
+      <h2 class="page-title">Assistance personnalisée 🤝</h2>
+      <p class="page-subtitle">Prends rendez-vous avec un référent pour être accompagné dans ton parcours</p>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-bottom: 3rem;">
+        <!-- Formulaire de rendez-vous -->
+        <div class="contact-form" style="margin: 0;">
+          <h3 style="color: #667eea; margin-bottom: 1.5rem; text-align: center;">📅 Prendre rendez-vous</h3>
+          <form onsubmit="handleRdvSubmit(event)">
+            <div class="form-group">
+              <label for="rdv-nom">Nom complet *</label>
+              <input type="text" id="rdv-nom" required>
+            </div>
+
+            <div class="form-group">
+              <label for="rdv-email">Email *</label>
+              <input type="email" id="rdv-email" required>
+            </div>
+
+            <div class="form-group">
+              <label for="rdv-tel">Téléphone *</label>
+              <input type="tel" id="rdv-tel" required>
+            </div>
+
+            <div class="form-group">
+              <label for="rdv-type">Type d'accompagnement *</label>
+              <select id="rdv-type" required>
+                <option value="">Choisis un type</option>
+                <option value="orientation">Orientation scolaire</option>
+                <option value="recherche">Recherche de formation</option>
+                <option value="alternance">Recherche d'alternance</option>
+                <option value="motivation">Soutien motivation</option>
+                <option value="demarches">Aide aux démarches</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="rdv-date">Date souhaitée *</label>
+              <input type="date" id="rdv-date" required>
+            </div>
+
+            <div class="form-group">
+              <label for="rdv-heure">Créneau horaire *</label>
+              <select id="rdv-heure" required>
+                <option value="">Choisis un créneau</option>
+                <option value="09h-10h">09h00 - 10h00</option>
+                <option value="10h-11h">10h00 - 11h00</option>
+                <option value="11h-12h">11h00 - 12h00</option>
+                <option value="14h-15h">14h00 - 15h00</option>
+                <option value="15h-16h">15h00 - 16h00</option>
+                <option value="16h-17h">16h00 - 17h00</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="rdv-message">En quelques mots, pourquoi souhaites-tu cet accompagnement ? *</label>
+              <textarea id="rdv-message" required rows="4"></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn">Confirmer le rendez-vous</button>
+          </form>
+        </div>
+
+        <!-- Contacts d'assistance sociale -->
+        <div>
+          <div
+            style="background: white; border-radius: 20px; padding: 2.5rem; box-shadow: 0 10px 40px rgba(0,0,0,0.1); margin-bottom: 2rem;">
+            <h3 style="color: #667eea; margin-bottom: 1.5rem; text-align: center;">☎️ Contacts d'assistance sociale</h3>
+
+            <div style="margin-bottom: 2rem;">
+              <h4 style="color: #333; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                <span style="font-size: 1.5rem;">🏛️</span> Mission Locale
+              </h4>
+              <p style="color: #666; margin-bottom: 0.5rem;">Accompagnement des 16-25 ans</p>
+              <p style="color: #667eea; font-weight: bold;">📞 01 23 45 67 89</p>
+              <p style="color: #667eea;">📧 contact@missionlocale.fr</p>
+            </div>
+
+            <div style="margin-bottom: 2rem;">
+              <h4 style="color: #333; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                <span style="font-size: 1.5rem;">🎓</span> CIO (Centre d'Information et d'Orientation)
+              </h4>
+              <p style="color: #666; margin-bottom: 0.5rem;">Orientation scolaire et professionnelle</p>
+              <p style="color: #667eea; font-weight: bold;">📞 01 23 45 67 90</p>
+              <p style="color: #667eea;">📧 cio@education.gouv.fr</p>
+            </div>
+
+            <div style="margin-bottom: 2rem;">
+              <h4 style="color: #333; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                <span style="font-size: 1.5rem;">💼</span> Pôle Emploi Jeunes
+              </h4>
+              <p style="color: #666; margin-bottom: 0.5rem;">Aide à l'insertion professionnelle</p>
+              <p style="color: #667eea; font-weight: bold;">📞 3995</p>
+              <p style="color: #667eea;">📧 jeunes@pole-emploi.fr</p>
+            </div>
+
+            <div style="margin-bottom: 2rem;">
+              <h4 style="color: #333; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                <span style="font-size: 1.5rem;">🆘</span> Fil Santé Jeunes
+              </h4>
+              <p style="color: #666; margin-bottom: 0.5rem;">Écoute et soutien psychologique</p>
+              <p style="color: #667eea; font-weight: bold;">📞 0 800 235 236 (gratuit)</p>
+              <p style="color: #667eea;">💬 Chat disponible sur filsantejeunes.com</p>
+            </div>
+
+            <div style="margin-bottom: 2rem;">
+              <h4 style="color: #333; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                <span style="font-size: 1.5rem;">🏠</span> CROUS
+              </h4>
+              <p style="color: #666; margin-bottom: 0.5rem;">Aide sociale et financière</p>
+              <p style="color: #667eea; font-weight: bold;">📞 01 40 51 36 00</p>
+              <p style="color: #667eea;">📧 aide.sociale@crous.fr</p>
+            </div>
+
+            <div>
+              <h4 style="color: #333; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                <span style="font-size: 1.5rem;">💰</span> CAF (Aide aux jeunes)
+              </h4>
+              <p style="color: #666; margin-bottom: 0.5rem;">Aides financières et logement</p>
+              <p style="color: #667eea; font-weight: bold;">📞 32 30</p>
+              <p style="color: #667eea;">📧 www.caf.fr</p>
+            </div>
+          </div>
+
+          <div
+            style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 20px; padding: 2rem; color: white; text-align: center;">
+            <h4 style="margin-bottom: 1rem; font-size: 1.3rem;">⏰ Disponibilité</h4>
+            <p style="margin-bottom: 0.5rem;">Lundi - Vendredi : 9h - 18h</p>
+            <p style="margin-bottom: 1rem;">Samedi : 10h - 13h</p>
+            <p style="font-size: 0.9rem; opacity: 0.9;">Réponse sous 24h ouvrées</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Page Contact -->
   <div id="contact" class="page">
     <div class="container">
@@ -663,6 +806,15 @@
     function handleSubmit(event) {
       event.preventDefault();
       alert('Merci pour ton message ! On reviendra vers toi très vite. 🚀');
+      event.target.reset();
+    }
+
+    function handleRdvSubmit(event) {
+      event.preventDefault();
+      const nom = document.getElementById('rdv-nom').value;
+      const date = document.getElementById('rdv-date').value;
+      const heure = document.getElementById('rdv-heure').value;
+      alert(`✅ Rendez-vous confirmé !\n\nBonjour ${nom},\n\nTon rendez-vous est enregistré pour le ${new Date(date).toLocaleDateString('fr-FR')} à ${heure}.\n\nTu recevras une confirmation par email avec le lien de visio ou l'adresse du rendez-vous.\n\nÀ très bientôt ! 🚀`);
       event.target.reset();
     }
   </script>
